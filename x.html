@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A PERFECT SURPRISE</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Arial Black', 'Arial', sans-serif;
+            text-transform: uppercase;
+            font-weight: 900;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ffeef2 0%, #ffc0cb 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #d81b60;
+            overflow-x: hidden;
+            text-align: center;
+            position: relative;
+        }
+        
+        /* Falling Petals Layer - FRONT & FASTER SPEED */
+        .petals-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            overflow: hidden;
+        }
+        .petal {
+            position: absolute;
+            background-color: #ff758c;
+            border-radius: 150px 0px 150px 0px;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(-20px) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 0.9; }
+            90% { opacity: 0.9; }
+            100% {
+                transform: translateY(105vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            width: 95%;
+            max-width: 450px;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 30px 20px;
+            border-radius: 25px;
+            box-shadow: 0 12px 40px rgba(216, 27, 96, 0.2);
+            backdrop-filter: blur(10px);
+            border: 3px solid rgba(255, 117, 140, 0.4);
+            position: relative;
+            z-index: 10;
+            margin: 20px auto;
+        }
+        .page {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .active {
+            display: flex;
+        }
+        h1 {
+            font-size: 1.6rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            color: #c2185b;
+            letter-spacing: 1px;
+        }
+        .tap-instruction {
+            font-size: 1.2rem;
+            color: #ff1744;
+            margin: 15px 0;
+            letter-spacing: 2px;
+            animation: pulse 1.5s infinite;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+        .btn {
+            background: linear-gradient(135deg, #ff4081 0%, #d81b60 100%);
+            color: #ffffff;
+            border: none;
+            padding: 16px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(216, 27, 96, 0.4);
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+        .back-btn {
+            position: absolute;
+            top: -15px;
+            left: 5px;
+            background: #ff758c;
+            color: #fff;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        /* PAGE 1: EMOJI GIFT BOX */
+        .gift-box-style {
+            font-size: 120px;
+            cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.15));
+            user-select: none;
+            display: inline-block;
+        }
+        .gift-box-style:hover { 
+            transform: scale(1.1) rotate(5deg); 
+        }
+
+        /* PAGE 2: REALISTIC & BIGGER 3D-STYLE GIFT BOX */
+        .gift-container-p2 {
+            position: relative;
+            margin: 40px auto 20px auto;
+            width: 240px; 
+            height: 240px;
+            cursor: pointer;
+        }
+        
+        .realistic-gift-lid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 240px;
+            height: 50px;
+            background: #ff3366;
+            border-radius: 8px;
+            z-index: 15;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 6px 10px rgba(0,0,0,0.2);
+        }
+        /* Ribbon Yellow Bow Effect on Lid */
+        .realistic-gift-lid::before {
+            content: '💝';
+            position: absolute;
+            top: -45px;
+            left: 95px;
+            font-size: 50px;
+        }
+        .realistic-gift-lid::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 105px;
+            width: 30px;
+            height: 50px;
+            background: #ffeb3b;
+        }
+        
+        .realistic-gift-body {
+            position: absolute;
+            top: 45px;
+            left: 10px;
+            width: 220px;
+            height: 185px;
+            background: #e91e63;
+            border-radius: 0 0 15px 15px;
+            z-index: 5;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        .realistic-gift-body::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 95px;
+            width: 30px;
+            height: 185px;
+            background: #ffeb3b;
+        }
+
+        /* SQUARE PHOTO FRAME ON TOP OF REALISTIC GIFT BOX */
+        .photo-frame-square {
+            width: 125px;
+            height: 125px;
+            border: 6px solid #ffffff;
+            border-radius: 12px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            overflow: hidden;
+            position: absolute;
+            top: 75px; 
+            left: 57px;
+            transition: transform 0.3s, opacity 0.5s;
+            background-color: #fff;
+            z-index: 20; 
+            pointer-events: none; /* Allows click to pass through to container */
+        }
+        .photo-frame-square img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Lid movement animation when opened */
+        .gift-container-p2.open .realistic-gift-lid {
+            transform: translateY(-110px) rotate(-18deg);
+        }
+        
+        /* Fade out main profile photo frame when gift pops open */
+        .gift-container-p2.open .photo-frame-square {
+            opacity: 0.3;
+            transform: scale(0.9);
+        }
+
+        /* BURSTING PHOTOS - COMPLETELY IN FRONT & LARGER */
+        .inside-photos {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            z-index: 100;
+        }
+        .popup-img {
+            position: absolute;
+            width: 130px; 
+            height: 130px; 
+            object-fit: cover;
+            border: 5px solid white;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+        }
+        
+        /* Burst Positions for Mobile / Small screens */
+        .gift-container-p2.open .inside-photos .popup-img {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+        .gift-container-p2.open .inside-photos .img1 { transform: translate(-150px, -160px) rotate(-10deg); }
+        .gift-container-p2.open .inside-photos .img2 { transform: translate(20px, -160px) rotate(10deg); }
+        .gift-container-p2.open .inside-photos .img3 { transform: translate(-150px, 30px) rotate(-12deg); }
+        .gift-container-p2.open .inside-photos .img4 { transform: translate(20px, 30px) rotate(12deg); }
+
+        /* Burst Positions for Larger Desktop Screens */
+        @media (min-width: 576px) {
+            .popup-img {
+                width: 150px;
+                height: 150px;
+            }
+            .gift-container-p2.open .inside-photos .img1 { transform: translate(-190px, -170px) rotate(-10deg); }
+            .gift-container-p2.open .inside-photos .img2 { transform: translate(40px, -170px) rotate(10deg); }
+            .gift-container-p2.open .inside-photos .img3 { transform: translate(-190px, 40px) rotate(-12deg); }
+            .gift-container-p2.open .inside-photos .img4 { transform: translate(40px, 40px) rotate(12deg); }
+        }
+
+        .note {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-top: 25px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,234,238,0.9) 100%);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px dashed #ff4081;
+            color: #880e4f;
+            font-family: 'Arial', sans-serif;
+            text-transform: none; /* Keeps letter case natural and elegant for reading */
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="petals-container" id="petalsContainer"></div>
+
+    <div class="container">
+        
+        <div id="page1" class="page active">
+            <h1>A Beautiful Gift For A Beautiful Soul</h1>
+            <div class="gift-box-style" onclick="goToPage2()">🎁</div>
+            <div class="tap-instruction" onclick="goToPage2()">Tap Me</div>
+            <button class="btn" onclick="goToPage2()">Open Surprise</button>
+        </div>
+
+        <div id="page2" class="page">
+            <button class="back-btn" onclick="goToPage1()">⬅ BACK</button>
+            
+            <h1>Happy Birthday My Love</h1>
+            
+            <div class="gift-container-p2" id="myGiftWrapper" onclick="toggleSurprise()">
+                <div class="realistic-gift-lid"></div>
+                
+                <div class="realistic-gift-body"></div>
+                
+                <div class="photo-frame-square">
+                    <img src="IMG_20251129_151627.jpg" alt="MY LOVE">
+                </div>
+                
+                <div class="inside-photos">
+                    <img src="IMG_20260526_000649.jpg" class="popup-img img1" alt="MEMORIES 1">
+                    <img src="Screenshot_2025-09-23-13-01-51-046_com.sn apchat.android.jpg" class="popup-img img2" alt="MEMORIES 2">
+                    <img src="IMG_20260526_000606.jpg" class="popup-img img3" alt="MEMORIES 3">
+                    <img src="IMG_20260526_000621.jpg" class="popup-img img4" alt="MEMORIES 4">
+                </div>
+            </div>
+
+            <div class="tap-instruction" onclick="toggleSurprise()">Tap Me</div>
+            
+            <div class="note">
+                You are the most amazing person in my life. Every single moment spent with you is like a beautiful dream come true. Thank you for bringing so much joy, love, and happiness into my world. I wish you all the success and happiness in this universe. I love you forever and always!
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Front falling leaves/petals script - FAST SPEED
+        const container = document.getElementById('petalsContainer');
+        const petalCount = 25;
+        
+        for (let i = 0; i < petalCount; i++) {
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+            const size = Math.random() * 15 + 10;
+            petal.style.width = size + 'px';
+            petal.style.height = size + 'px';
+            petal.style.left = Math.random() * 100 + 'vw';
+            
+            petal.style.animationDelay = Math.random() * 5 + 's';
+            petal.style.animationDuration = Math.random() * 3 + 3 + 's';
+            
+            const colors = ['#ff758c', '#ff7eb3', '#ffb6c1', '#ffc0cb', '#ff4081'];
+            petal.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            container.appendChild(petal);
+        }
+
+        function goToPage2() {
+            document.getElementById('page1').classList.remove('active');
+            document.getElementById('page2').classList.add('active');
+        }
+
+        function goToPage1() {
+            document.getElementById('page2').classList.remove('active');
+            document.getElementById('page1').classList.add('active');
+            document.getElementById('myGiftWrapper').classList.remove('open');
+        }
+
+        function toggleSurprise() {
+            document.getElementById('myGiftWrapper').classList.toggle('open');
+        }
+    </script>
+</body>
+  </html>
+  
